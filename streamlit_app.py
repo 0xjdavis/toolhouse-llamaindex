@@ -1,18 +1,18 @@
 import streamlit as st
-#import dotenv
+#from dotenv import load_dotenv
 from toolhouse import Toolhouse
 from toolhouse_llamaindex import ToolhouseLlamaIndex
 from together import Together
 import json
 
 # Load environment variables
-#dotenv.load_dotenv()
+#load_dotenv()
 
 # Streamlit app title
 st.title("FizzBuzz Generator with Toolhouse and Together AI")
 
 # Initialize Toolhouse
-TOOLHOUSE_API_KEY=st.secrets["TOOLHOUSE_API_KEY"]
+TOOLHOUSE_API_KEY = st.secrets["TOOLHOUSE_API_KEY"]
 th = Toolhouse(api_key=TOOLHOUSE_API_KEY)
 th.set_metadata("id", "10566")
 th.set_metadata("timezone", -8)
@@ -57,19 +57,27 @@ if response:
 
     # Run tools and handle potential errors
     try:
-        tool_run = th.run_tools(response)
-        messages.append(tool_run)
-        st.write("Tool execution successful. Making final API call...")
+        # Check if the 'choices' list exists and contains valid messages
+        if 'choices' in response and len(response.choices) > 0:
+            choice = response.choices[0]
+
+            # Check if 'function_call' exists in the first choice's message
+            if hasattr(choice.message, 'function_call'):
+                tool_run = th.run_tools(response)
+                messages.append(tool_run)
+                st.write("Tool execution successful. Making final API call...")
+            else:
+                st.write("No 'function_call' in the response message. Skipping tool execution.")
+        else:
+            st.write("No 'choices' or 'function_call' found in the response.")
     except KeyError as e:
         st.error(f"KeyError occurred during tool execution: {str(e)}")
         st.write("This error suggests that the 'function_call' key is missing from the response.")
-        st.write("Let's check the structure of the 'choices' in the response:")
-
+        
+        # Check the structure of the 'choices'
         for i, choice in enumerate(response.choices):
             st.subheader(f"Choice {i}:")
             st.json(choice.model_dump())
-
-            # Check if 'message' exists and has a 'function_call' key
             if hasattr(choice, 'message'):
                 if hasattr(choice.message, 'function_call'):
                     st.write("Function call found in this choice:")
