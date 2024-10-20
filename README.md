@@ -1,6 +1,6 @@
 # 🎈🔧🏠 Toolhouse FizzBuzz Tool Template
 
-A simple Streamlit app template for you to modify!
+A simple Streamlit app template for you to modify! It utilizes Toolhouse, LlamaIndex and Together AI.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://toolhouse-tool.streamlit.app/)
 
