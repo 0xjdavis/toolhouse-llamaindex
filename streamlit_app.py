@@ -10,7 +10,7 @@ import json
 
 # Setting page layout
 st.set_page_config(
-    page_title="Data Visualization Analysis Chatbot with Langchain, OpenAI and a Plotly 3D Scatterplot of CSV Data",
+    page_title="Custom Toolhouse Tool Using LlamaIndex",
     page_icon="✨",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -18,7 +18,7 @@ st.set_page_config(
 
 # Sidebar for API Key and User Info
 st.sidebar.header("About App")
-st.sidebar.markdown('This is an example of using a localized toolhouse tool created by Daniele@Toolhouse and <a href="https://ai.jdavis.xyz" target="_blank">0xjdavis</a>.', unsafe_allow_html=True)
+st.sidebar.markdown('This is an example of using a custom toolhouse tool created by Toolhouse and <a href="https://ai.jdavis.xyz" target="_blank">0xjdavis</a>.', unsafe_allow_html=True)
 
 # Calendly
 st.sidebar.markdown("""
