@@ -1,1 +1,8 @@
+# STREAMLIT
 streamlit
+# PYTHON
+python-dotenv
+# AI STACK
+together
+toolhouse
+llama_index
